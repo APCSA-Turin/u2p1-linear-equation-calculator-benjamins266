@@ -32,6 +32,7 @@ public class LinearCalculator{
         y1 = Integer.parseInt(secondCoord1);
         y2 = Integer.parseInt(secondCoord2);
 
+        //To use for undefined slope
         isUndefined = false;
         if((x2-x1) == 0){
             isUndefined = true;
@@ -65,7 +66,9 @@ public class LinearCalculator{
     //distance() -> returns a double. 
     //calculates the distance between the two points to the nearest HUNDREDTH and returns the value.
     public double distance(){
-        double distanceFormula = Math.sqrt(Math.pow((y2-y1),2) + Math.pow((x2-x1),2)); //FIX NEGATIVES
+        //using distance formula Sqrt of (y2-y1)^2 + (x2-x1)^2
+        //using roundedToHundredth
+        double distanceFormula = Math.sqrt(Math.pow((y2-y1),2) + Math.pow((x2-x1),2)); 
         distanceFormula = roundedToHundredth(distanceFormula); //USE METHOD AT BOTTOM
         return distanceFormula;
     }
@@ -73,9 +76,11 @@ public class LinearCalculator{
     //calculates the y intercept of the equation and returns the value to the nearest HUNDREDTH
     //if y-int if undefined, should return -999.99
     public double yInt(){
+        //using isUndefined variable if the yInt is undefined
         if(isUndefined==true){
             return -999.99;
         }
+        //yIntercept formula y-mx=b
         double yIntercept = roundedToHundredth(y1 - (slope()*x1));
         return yIntercept;
     }
@@ -85,20 +90,13 @@ public class LinearCalculator{
     //if slope is undefined, should return -999.99
     public double slope(){
         double slope1; 
+        //isUndefined variable for undefined slope
         if (isUndefined == true) {
             return -999.99;    
         } else {
+            //slope formula (y2-y1)/(x2-x1)
             slope1 = roundedToHundredth((double) (y2-y1) / (x2-x1)); 
         }
-        //else if ((x1<0 || x2<0) && (y1<0||y2<0)){
-        //     slope1 = roundedToHundredth((y2+y1) / (x2+x1));
-        // } else if (y2 <0 || y1<0) {
-        //     slope1 = roundedToHundredth((y2+y1) / (x2-x1));
-        // } else if (x1<0 || x2<0) {
-        //     slope1 = roundedToHundredth((y2-y1) / (x2+x1));
-        // } else {
-        //     slope1 = roundedToHundredth((y2-y1) / (x2-x1)); 
-        // }
          return slope1;
     }
 
@@ -111,6 +109,7 @@ public class LinearCalculator{
         if (isUndefined == true){
             equation1 = "undefined";
         } else {
+            //Putting whole equation together; y=mx+b
             if(yInt()==0){
                 equation1 += "y=" + slope() + "x";
             } else if(yInt()<0){
@@ -129,6 +128,7 @@ public class LinearCalculator{
     //roundedToHundredth(double x)-> returns double
     //calculates the input to the nearest hundredth and returns that value
     public double roundedToHundredth(double x){
+        //rounding to nearest 100th
         double round = Math.round(x*100.00) /100.00;
         return round;
     }
